@@ -49,7 +49,9 @@ test.describe('Add Expense', () => {
     test('adds an expense with a multi-word name', async ({ tracker }) => {
       await tracker.addExpense('Monthly Gym Membership', '40')
 
-      await expect(tracker.expenseRow('Monthly Gym Membership')).toContainText('40')
+      const row = tracker.expenseRow('Monthly Gym Membership')
+      await expect(row.getByRole('cell', { name: '40', exact: true })).toBeVisible()
+      await expect(tracker.expenseRows('Monthly Gym Membership')).toHaveCount(1)
     })
 
     test('submits the form with the Enter key', async ({ tracker }) => {
@@ -70,12 +72,8 @@ test.describe('Add Expense', () => {
       await tracker.addExpense('Coffee', '5')
       await tracker.addExpense('Groceries', '30')
 
-      const rowTexts = await page.getByRole('row').allTextContents()
-      const coffeeIndex = rowTexts.findIndex((text) => text.includes('Coffee'))
-      const groceriesIndex = rowTexts.findIndex((text) => text.includes('Groceries'))
-
-      expect(coffeeIndex).toBeGreaterThanOrEqual(0)
-      expect(groceriesIndex).toBeGreaterThan(coffeeIndex)
+      const expenseRows = page.getByRole('row').filter({ hasText: /Coffee|Groceries/ })
+      await expect(expenseRows).toHaveText([/Coffee/, /Groceries/])
     })
   })
 
@@ -83,7 +81,8 @@ test.describe('Add Expense', () => {
     test('trims leading and trailing whitespace from the name', async ({ tracker }) => {
       await tracker.addExpense('  Coffee  ', '5')
 
-      await expect(tracker.expenseRow('Coffee')).toContainText('5')
+      const nameCell = tracker.expenseRow('Coffee').getByRole('cell', { name: 'Coffee', exact: true })
+      expect(await nameCell.textContent()).toBe('Coffee')
     })
 
     test('disables the Add button until both fields have values', async ({ tracker }) => {
@@ -92,6 +91,8 @@ test.describe('Add Expense', () => {
 
     test('enables the Add button once both fields are valid', async ({ tracker }) => {
       await tracker.fillName('Coffee')
+      await expect(tracker.addButton).toBeDisabled()
+
       await tracker.fillAmount('5')
 
       await expect(tracker.addButton).toBeEnabled()
@@ -205,6 +206,7 @@ test.describe('Add Expense', () => {
 
       await tracker.addExpense(maliciousName, '5')
 
+      await expect(tracker.expenseRows(maliciousName)).toHaveCount(1)
       await expect(tracker.expenseRow(maliciousName)).toContainText('5')
       expect(dialogAppeared).toBe(false)
       expect(await page.evaluate(() => (window as unknown as { __xss?: boolean }).__xss)).toBeUndefined()
