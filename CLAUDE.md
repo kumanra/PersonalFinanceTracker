@@ -30,3 +30,11 @@ confirmed before it becomes the basis for implementation or tests.
 Keep the scope of the feature file to the functionality actually requested — don't pull
 in adjacent fields or flows from a wireframe that weren't asked for; add those as their
 own feature files when that work starts.
+
+## Session snapshots
+
+At a natural stopping point in a working session (or when asked), write a dated
+snapshot to `docs/sessions/YYYY-MM-DD-short-slug/` containing `summary.md`,
+`transcript.md`, and `repo-state.md`. See `docs/sessions/README.md` for the exact
+layout and what belongs in each file. Commit these alongside the session's other
+changes so project history stays readable without digging through chat scrollback.
