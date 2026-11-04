@@ -60,8 +60,4 @@ export class ExpenseTrackerPage {
   amountErrors(): Locator {
     return this.page.getByRole('alert').filter({ hasText: /amount/i })
   }
-
-  async totalText(): Promise<string> {
-    return (await this.totalRow.textContent()) ?? ''
-  }
 }
