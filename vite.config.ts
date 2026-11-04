@@ -1,5 +1,6 @@
 import {defineConfig, type UserConfig} from 'vite'
 import react from '@vitejs/plugin-react'
+import { configDefaults } from 'vitest/config'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -8,5 +9,6 @@ export default defineConfig({
     environment: 'jsdom',
     globals: true,
     setupFiles: 'vitest.setup.ts',
+    exclude: [...configDefaults.exclude, 'playwright/**', 'cypress/**'],
   }
 } as UserConfig)
