@@ -26,3 +26,8 @@ dist-ssr
 .eslintcache
 .claude/settings*
 .devcontainer/
+
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
