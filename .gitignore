@@ -24,10 +24,13 @@ dist-ssr
 *.sw?
 
 .eslintcache
-.claude/settings*
+.claude/settings.local.json
 .devcontainer/
 
 # Playwright
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+# red-green-refactor cycle state (runtime, not shared)
+.claude/hooks/tdd/state.json
