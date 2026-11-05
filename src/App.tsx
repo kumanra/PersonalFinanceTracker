@@ -21,6 +21,8 @@ function Home() {
     setAmount('')
   }
 
+  const total = expenses.reduce((sum, expense) => sum + Number(expense.amount), 0)
+
   return (
     <>
       <div>Home</div>
@@ -43,6 +45,10 @@ function Home() {
               <td>{expense.amount}</td>
             </tr>
           ))}
+          <tr>
+            <td>Total</td>
+            <td>{total}</td>
+          </tr>
         </tbody>
       </table>
     </>
