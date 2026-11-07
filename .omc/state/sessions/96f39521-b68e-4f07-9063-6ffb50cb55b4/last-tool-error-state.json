@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"mkdir -p features && git mv cypress/e2e/features/add-expense.feature features/add-expense.feature\",\"description\":\"Move feature file to root features/ directory\"}",
+  "error": "Exit code 128\nfatal: not under version control, source=cypress/e2e/features/add-expense.feature, destination=features/add-expense.feature",
+  "timestamp": "2026-11-07T15:13:24.612Z",
+  "retry_count": 1
+}
