@@ -16,6 +16,21 @@ function AddExpenseForm() {
       return
     }
 
+    if (!amount) {
+      setError('Amount is required')
+      return
+    }
+
+    const parsedAmount = Number(amount)
+    if (Number.isNaN(parsedAmount)) {
+      setError('Amount must be a number')
+      return
+    }
+    if (parsedAmount <= 0) {
+      setError('Amount must be greater than 0')
+      return
+    }
+
     setError('')
     setExpenses([...expenses, { name, amount }])
     setName('')

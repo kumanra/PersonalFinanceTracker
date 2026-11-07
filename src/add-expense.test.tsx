@@ -44,7 +44,7 @@ describe('Add expense', () => {
     expect(screen.queryByRole('listitem')).not.toBeInTheDocument()
   })
 
-  it.skip('rejects an expense without an amount', async () => {
+  it('rejects an expense without an amount', async () => {
     render(<App />)
 
     await fillExpenseForm('Coffee', '')
@@ -53,7 +53,7 @@ describe('Add expense', () => {
     expect(screen.queryByRole('listitem')).not.toBeInTheDocument()
   })
 
-  it.skip.each([
+  it.each([
     { amount: '0', error: 'Amount must be greater than 0' },
     { amount: '-5', error: 'Amount must be greater than 0' },
     { amount: 'abc', error: 'Amount must be a number' },
@@ -66,14 +66,17 @@ describe('Add expense', () => {
     expect(screen.queryByRole('listitem')).not.toBeInTheDocument()
   })
 
-  it.skip('adds multiple expenses to the list', async () => {
+  it('adds multiple expenses to the list', async () => {
     render(<App />)
 
     await fillExpenseForm('Groceries', '42.50')
     await fillExpenseForm('Bus ticket', '3.20')
 
-    expect(screen.getByRole('listitem', { name: /Groceries/i })).toHaveTextContent('42.50')
-    expect(screen.getByRole('listitem', { name: /Bus ticket/i })).toHaveTextContent('3.20')
-    expect(screen.getAllByRole('listitem')).toHaveLength(2)
+    const items = screen.getAllByRole('listitem')
+    expect(items).toHaveLength(2)
+    expect(items[0]).toHaveTextContent('Groceries')
+    expect(items[0]).toHaveTextContent('42.50')
+    expect(items[1]).toHaveTextContent('Bus ticket')
+    expect(items[1]).toHaveTextContent('3.20')
   })
 })
