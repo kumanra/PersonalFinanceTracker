@@ -14,5 +14,5 @@
 
 ## Implementing scenarios incrementally
 
-- Implement one Gherkin scenario at a time. Its matching test is the only one that should go from red to green at that step; leave every other scenario's test `it.skip`/`test.skip` (or failing, if not yet ported) until its own step.
-- After writing or changing code for a step, run the *full* test suite (`npm run test` and `npm run test:e2e`), not just the one test in focus. Confirm: the chosen test now passes, every skipped test is still skipped (not accidentally un-skipped or passing), and no previously-passing test broke. A skipped test silently starting to pass, or an unrelated suite failing, means the test runner config or the implementation touched more than this step intended.
+- Use the `gherkin-red-green-tdd` skill (`.omc/skills/gherkin-red-green-tdd.md`) to implement scenarios from a `features/*.feature` file: one scenario at a time, red to green, with a full-suite verification gate at every step.
+- Delegate each scenario step to the `gherkin-scenario-implementer` agent (`.claude/agents/gherkin-scenario-implementer.md`) rather than running the workflow in the main conversation — it loads the skill and does one scenario per invocation, keeping the implementation's tool-call noise out of the main context.
