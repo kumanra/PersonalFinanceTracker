@@ -18,12 +18,14 @@ describe('Add expense', () => {
 
     await fillExpenseForm('Groceries', '42.50')
 
-    expect(screen.getByRole('listitem', { name: /Groceries/i })).toHaveTextContent('42.50')
+    const [expenseItem] = screen.getAllByRole('listitem')
+    expect(expenseItem).toHaveTextContent('Groceries')
+    expect(expenseItem).toHaveTextContent('42.50')
     expect(screen.getByLabelText('Expense name')).toHaveValue('')
     expect(screen.getByLabelText('Amount')).toHaveValue('')
   })
 
-  it.skip('rejects an expense without a name', async () => {
+  it('rejects an expense without a name', async () => {
     render(<App />)
 
     await fillExpenseForm('', '20')
