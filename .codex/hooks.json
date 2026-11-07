@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node 'd:\\src\\PersonalFinanceTracker\\.codex\\hooks\\tdd/deny-test-edits.cjs'"
+          },
+          {
+            "type": "command",
+            "command": "node 'd:\\src\\PersonalFinanceTracker\\.codex\\hooks\\tdd/guard-src-edit.cjs'"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node 'd:\\src\\PersonalFinanceTracker\\.codex\\hooks\\tdd/guard-commit.cjs'"
+          }
+        ]
+      }
+    ]
+  }
+}
