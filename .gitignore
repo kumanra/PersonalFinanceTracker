@@ -24,5 +24,10 @@ dist-ssr
 *.sw?
 
 .eslintcache
-.claude/settings*
+.claude/settings.local.json
+.claude/hooks/tdd-state.json
+.claude/hooks/tdd-devserver.log
 .devcontainer/
+
+test-results/
+playwright-report/
