@@ -30,6 +30,12 @@ test('adds an expense with a valid name and amount', async ({ page }) => {
   await expect(page.getByLabel('Amount')).toHaveValue('')
 })
 
+test('adds an expense with a decimal amount', async ({ page }) => {
+  await fillExpenseForm(page, 'Taxi', '15.75')
+
+  await expect(expenseListItem(page, 'Taxi', '15.75')).toBeVisible()
+})
+
 test('rejects an expense without a name', async ({ page }) => {
   await fillExpenseForm(page, '', '20')
 

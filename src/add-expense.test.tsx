@@ -25,6 +25,16 @@ describe('Add expense', () => {
     expect(screen.getByLabelText('Amount')).toHaveValue('')
   })
 
+  it('adds an expense with a decimal amount', async () => {
+    render(<App />)
+
+    await fillExpenseForm('Taxi', '15.75')
+
+    const [expenseItem] = screen.getAllByRole('listitem')
+    expect(expenseItem).toHaveTextContent('Taxi')
+    expect(expenseItem).toHaveTextContent('15.75')
+  })
+
   it('rejects an expense without a name', async () => {
     render(<App />)
 

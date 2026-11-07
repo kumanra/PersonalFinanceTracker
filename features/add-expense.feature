@@ -14,6 +14,12 @@ Feature: Add expense
     And the expense name field should be empty
     And the expense amount field should be empty
 
+  Scenario: Add an expense with a decimal amount
+    When I enter "Taxi" as the expense name
+    And I enter "15.75" as the expense amount
+    And I submit the expense
+    Then the expense "Taxi" with amount "15.75" should appear in the expense list
+
   Scenario: Attempt to add an expense without a name
     When I enter "" as the expense name
     And I enter "20" as the expense amount
